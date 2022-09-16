@@ -1,9 +1,11 @@
 import React from 'react'
 import Card from 'react-bootstrap/Card'
+import { useNavigate } from 'react-router-dom'
 import "../App.css"
 import image from "../Images/orange2.jpg"
 
-export default function SignUp() {
+export default function SignUp(props) {
+    let navigate = useNavigate()
     const handleSubmit = (e) => {
         e.preventDefault();
         let password = e.target.password.value;
@@ -32,8 +34,8 @@ export default function SignUp() {
                         console.error(data.error);
                     } else {
                         console.log("success")
-                        // props.flashMessage("Account created", "success");
-                        // props.modalSetFalse()
+                        props.flashMessage("Account created", "success");
+                        navigate('/login')
                     }
                 });
         }
