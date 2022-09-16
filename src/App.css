@@ -37,6 +37,11 @@
   }
 }
 
-#searchCard{
-  max-height: 1000px;
+.underline {
+  text-decoration: underline;
+}
+
+.full-size{
+  
+  min-height: 100vh;
 }

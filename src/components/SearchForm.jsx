@@ -32,29 +32,20 @@ export default function SearchForm(props) {
   let handleListEdit = e => {
     e.preventDefault()
     let item = e.target.id
+    console.log(item)
+    console.log(searchList)
     let index = searchList.indexOf(item)
-    console.log(index)
-
-    if (index !== searchList.length-1){
-      console.log("not -1")
-
-      props.setSearchList(searchList.splice(index, 1))
-      searchList(props.searchList)
-    }
-    else{
-      let newSearchList = props.searchList.splice(-1, 1)
-      console.log("-1")
-      props.setSearchList(props.searchList.splice(-1, 1))
-      setSearchList(props.searchList.splice(-1, 1))
     
-    }
+    let newSearchList = searchList.splice(index, 1)
+    setSearchList(newSearchList)
+  
   }
 
   return (
 
     <>
-      <div className='d-flex justify-content-center'>
-        <Card className='col border-success border-3 container-fluid '>
+      <div className='d-flex justify-content-center p-4'>
+        <Card className='col border-success border-3 container-fluid bg-light'>
           <Nav>
             <div className="nav nav-tabs" id="nav-tab" role="tablist">
               <Button className="nav-link active" id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-home" type="button" role="tab" aria-controls="nav-home" aria-selected="true">Single Item</Button>
