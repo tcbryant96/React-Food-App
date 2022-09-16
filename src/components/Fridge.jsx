@@ -9,7 +9,7 @@ import Badge from 'react-bootstrap/Badge';
 import Table from 'react-bootstrap/Table';
 import Modal from 'react-bootstrap/Modal';
 
-export default function Fridge() {
+export default function Fridge(props) {
   let [addItem, setAddItem] = useState(false)
   let [shoppingList, setShoppingList] = useState([])
   let [edit, setEdit] = useState(false)
@@ -59,6 +59,7 @@ export default function Fridge() {
       .then(result => console.log(result))
       .catch(error => console.log('error', error));
       setUpdate("updated")
+      props.flashMessage("Item Added", "primary")
     setAddItem(false)
   }
 
@@ -79,6 +80,7 @@ export default function Fridge() {
       .then(result => console.log(result))
       .catch(error => console.log('error', error));
       setUpdate("updated")
+      props.flashMessage("Item Deleted", "danger")
 
   }
   let handleEditItem = (e) => {
@@ -114,6 +116,7 @@ export default function Fridge() {
           .catch(error => console.log('error', error));
           setEdit(false)
           setUpdate("updated")
+          props.flashMessage("Updated", "primary")
       }
     }
 
@@ -139,6 +142,7 @@ export default function Fridge() {
         .catch(error => console.log('error', error));
         setModal(false)
         setUpdate("updated")
+        props.flashMessage("Fridge Cleared" , "danger")
 }}
 
 
@@ -248,7 +252,7 @@ export default function Fridge() {
           {shoppingList.length >=1 ?
           <div className='row'>
           <div className='text-end col-11'>
-            <Button onClick={()=>{setModal(true)}} className='btn-danger'>
+            <Button onClick={()=>{setModal(true)}} className='btn-danger mb-5 me-4 '>
               Clear List
             </Button>
           </div>
