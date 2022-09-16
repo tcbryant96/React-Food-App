@@ -15,6 +15,7 @@ export default function ShoppingCart() {
     let [edit, setEdit] = useState(false)
     let [modal, setModal] = useState(false)
     let [formId, setFormId] = useState(null)
+    let [update, setUpdate] =useState(null)
 
     useEffect(() => {
 
@@ -32,8 +33,8 @@ export default function ShoppingCart() {
             .then(response => response.json())
             .then(result => setShoppingList(result))
             .catch(error => console.log('error', error));
-
-    })
+            setUpdate(null)
+    }, [update])
     let handleAddItem = async e => {
         e.preventDefault()
         let token = localStorage.token
@@ -54,9 +55,10 @@ export default function ShoppingCart() {
         };
 
         fetch("http://localhost:5000/api/cart", requestOptions)
-            .then(response => response.text())
+            .then(response => response.json())
             .then(result => console.log(result))
             .catch(error => console.log('error', error));
+        setUpdate("updated")
         setAddItem(false)
     }
     let handleDeleteItem = (e) => {
@@ -75,7 +77,7 @@ export default function ShoppingCart() {
             .then(response => response.json())
             .then(result => console.log(result))
             .catch(error => console.log('error', error));
-
+            setUpdate("updated")
     }
     let handleEditItem = (e) => {
         e.preventDefault()
@@ -108,6 +110,7 @@ export default function ShoppingCart() {
                     .then(result => console.log(result))
                     .catch(error => console.log('error', error));
                 setEdit(false)
+                setUpdate("updated")
             }
         }
 
@@ -157,7 +160,7 @@ export default function ShoppingCart() {
                 .then(response => response.json())
                 .then(result => console.log(result))
                 .catch(error => console.log('error', error));
-
+                setUpdate("updated")
         }
     }
     let handleRow = e => {
@@ -183,6 +186,7 @@ export default function ShoppingCart() {
                 .then(result => console.log(result))
                 .catch(error => console.log('error', error));
             setModal(false)
+            setUpdate("updated")
         }
     }
 

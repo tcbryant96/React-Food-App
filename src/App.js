@@ -10,7 +10,6 @@ import { useState } from "react";
 import FridgeRecipes from "./components/FridgeRecipes";
 
 function App() {
-  let [user, setUser] = useState({"username": "user"})
   let navigate = useNavigate();
   let login = async () => {
     let token = localStorage.token;
@@ -45,7 +44,7 @@ function App() {
 
   return (
     <>
-      <MyNavbar logout={logout} user={user} />
+      <MyNavbar logout={logout} />
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/signup" element={<SignUp />} />

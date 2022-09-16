@@ -14,6 +14,7 @@ export default function Fridge() {
   let [shoppingList, setShoppingList] = useState([])
   let [edit, setEdit] = useState(false)
   let [modal, setModal] = useState(false)
+  let [update, setUpdate] =useState(null)
 
   useEffect(() => {
     let token = localStorage.token
@@ -30,8 +31,8 @@ export default function Fridge() {
       .then(response => response.json())
       .then(result => setShoppingList(result))
       .catch(error => console.log('error', error));
-
-  })
+    setUpdate(null)
+  }, [update])
   let handleAddItem = async e => {
     e.preventDefault()
     let item = e.target.item.value
@@ -57,6 +58,7 @@ export default function Fridge() {
       .then(response => response.json())
       .then(result => console.log(result))
       .catch(error => console.log('error', error));
+      setUpdate("updated")
     setAddItem(false)
   }
 
@@ -76,6 +78,7 @@ export default function Fridge() {
       .then(response => response.json())
       .then(result => console.log(result))
       .catch(error => console.log('error', error));
+      setUpdate("updated")
 
   }
   let handleEditItem = (e) => {
@@ -110,6 +113,7 @@ export default function Fridge() {
           .then(result => console.log(result))
           .catch(error => console.log('error', error));
           setEdit(false)
+          setUpdate("updated")
       }
     }
 
@@ -134,6 +138,7 @@ export default function Fridge() {
         .then(result => console.log(result))
         .catch(error => console.log('error', error));
         setModal(false)
+        setUpdate("updated")
 }}
 
 
