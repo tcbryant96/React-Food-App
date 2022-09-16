@@ -11,7 +11,6 @@ export default function Home(props) {
     let [fridge, setFridge] = useState([{ "item": "carrots", "quantity": 5 }, { "item": "eggs", "quantity": 24 }, { "item": "chicken", "quantity": 10 }])
     let [need, setNeed] = useState(0)
     useEffect(()=>{
-        console.log(localStorage)
         setRecipes(recipes)
     }, [recipes])
 
@@ -25,40 +24,7 @@ export default function Home(props) {
             data.hits[i].recipe.need = data.hits[i].recipe.ingredients.length - 1
         }
         setRecipes(data.hits)
-        console.log(data.hits)
         
-    }
-    let addToCart = (e) => {
-        e.preventDefault()
-        let index = e.target.id
-        for (let i=0; i < recipes[index].recipe.ingredients.length; i++){
-            let item = recipes[index].recipe.ingredients[i].food
-            let quantity = recipes[index].recipe.ingredients[i].quantity
-            if (quantity > 0){
-            let token = localStorage.token
-            var myHeaders = new Headers();
-            myHeaders.append("Authorization", "Bearer " + token);
-            myHeaders.append("Content-Type", "application/json");
-    
-            var raw = JSON.stringify({
-                "item": item,
-                "quantity": quantity
-            });
-    
-            var requestOptions = {
-                method: 'POST',
-                headers: myHeaders,
-                body: raw,
-                redirect: 'follow'
-            };
-    
-            fetch("http://localhost:5000/api/cart", requestOptions)
-                .then(response => response.json())
-                .then(result => console.log(result))
-                .catch(error => console.log('error', error))
-                props.flashMessage("Items Added To Cart", "primary")
-                window.scrollTo({top: 0, left: 0, behavior: 'smooth'})
-        }}
     }
     let handleMinMaxSearch = async e => {
         e.preventDefault()
@@ -209,7 +175,7 @@ export default function Home(props) {
 
                 <div className='row '>
                     <div className='col'>
-                        <Recipes recipes={recipes} fridge={fridge} addToCart={addToCart}/>
+                        <Recipes recipes={recipes} fridge={fridge}/>
                     </div>
 
                 </div>

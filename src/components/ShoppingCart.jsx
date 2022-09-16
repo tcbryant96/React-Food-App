@@ -9,7 +9,7 @@ import Badge from 'react-bootstrap/Badge';
 import Table from 'react-bootstrap/Table';
 import Modal from 'react-bootstrap/Modal';
 
-export default function ShoppingCart(props) {
+export default function ShoppingCart() {
     let [addItem, setAddItem] = useState(false)
     let [shoppingList, setShoppingList] = useState([])
     let [edit, setEdit] = useState(false)
@@ -58,7 +58,6 @@ export default function ShoppingCart(props) {
             .then(response => response.json())
             .then(result => console.log(result))
             .catch(error => console.log('error', error));
-        props.flashMessage("Item Added", "success")
         setUpdate("updated")
         setAddItem(false)
     }
@@ -79,7 +78,6 @@ export default function ShoppingCart(props) {
             .then(result => console.log(result))
             .catch(error => console.log('error', error));
             setUpdate("updated")
-            props.flashMessage("Item Deleted", "danger")
     }
     let handleEditItem = (e) => {
         e.preventDefault()
@@ -112,7 +110,6 @@ export default function ShoppingCart(props) {
                     .then(result => console.log(result))
                     .catch(error => console.log('error', error));
                 setEdit(false)
-                props.flashMessage("Updated" , "success")
                 setUpdate("updated")
             }
         }
@@ -163,8 +160,6 @@ export default function ShoppingCart(props) {
                 .then(response => response.json())
                 .then(result => console.log(result))
                 .catch(error => console.log('error', error));
-                props.flashMessage("Added To Fridge", "primary")
-                
                 setUpdate("updated")
         }
     }
@@ -192,7 +187,6 @@ export default function ShoppingCart(props) {
                 .catch(error => console.log('error', error));
             setModal(false)
             setUpdate("updated")
-            props.flashMessage("List Cleared", "danger")
         }
     }
 

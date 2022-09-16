@@ -9,7 +9,7 @@ import Badge from 'react-bootstrap/Badge';
 import Table from 'react-bootstrap/Table';
 import Modal from 'react-bootstrap/Modal';
 
-export default function Fridge(props) {
+export default function Fridge() {
   let [addItem, setAddItem] = useState(false)
   let [shoppingList, setShoppingList] = useState([])
   let [edit, setEdit] = useState(false)
@@ -59,7 +59,6 @@ export default function Fridge(props) {
       .then(result => console.log(result))
       .catch(error => console.log('error', error));
       setUpdate("updated")
-      props.flashMessage("Item Added", "primary")
     setAddItem(false)
   }
 
@@ -80,7 +79,6 @@ export default function Fridge(props) {
       .then(result => console.log(result))
       .catch(error => console.log('error', error));
       setUpdate("updated")
-      props.flashMessage("Item Deleted", "Danger")
 
   }
   let handleEditItem = (e) => {
@@ -116,7 +114,6 @@ export default function Fridge(props) {
           .catch(error => console.log('error', error));
           setEdit(false)
           setUpdate("updated")
-          props.flashMessage("Updated", "primary")
       }
     }
 
@@ -142,7 +139,6 @@ export default function Fridge(props) {
         .catch(error => console.log('error', error));
         setModal(false)
         setUpdate("updated")
-        props.flashMessage("Fridge Cleared" , "danger")
 }}
 
 

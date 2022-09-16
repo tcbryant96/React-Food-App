@@ -5,11 +5,9 @@ import Container from 'react-bootstrap/Container';
 import Dropdown from 'react-bootstrap/Dropdown';
 import DropdownButton from 'react-bootstrap/DropdownButton';
 import ButtonGroup from 'react-bootstrap/ButtonGroup';
-import { useEffect } from 'react';
 
 
 export default function MyNavbar(props) {
-
   return (
     <>
 
@@ -28,7 +26,7 @@ export default function MyNavbar(props) {
       </Dropdown>: null}
       <Nav className="me-auto">
         <Nav.Link href="/">Home</Nav.Link>
-        {localStorage.token?
+        {localStorage.token ?
         <>
         <Nav.Link href="/shopping-cart">Shopping Cart</Nav.Link>
         <Nav.Link href="/fridge">My Fridge</Nav.Link>

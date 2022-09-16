@@ -6,19 +6,12 @@ import ShoppingCart from "./components/ShoppingCart";
 import Fridge from "./components/Fridge";
 import Login from "./components/Login";
 import MyRecipes from "./components/MyRecipes";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import FridgeRecipes from "./components/FridgeRecipes";
-import AlertMessage from "./components/AlertMessage";
 
 function App() {
-  const [message, setMessage] = useState(null);
-  const [category, setCategory] = useState(null);
-  const [user, setUser] = useState(false)
-  useEffect(()=> {
-       
-  }, [user])
   let navigate = useNavigate();
-  let login = () => {
+  let login = async () => {
     let token = localStorage.token;
     var myHeaders = new Headers();
     myHeaders.append(
@@ -34,42 +27,31 @@ function App() {
 
     fetch("http://localhost:5000/api/users/", requestOptions)
       .then((response) => response.json())
-      .then((data) => handleMessage(data))
-      .then((user)=> localStorage.setItem("username", user.username))
+      .then((user) => grabUsername(user))
+      .then((username => localStorage.setItem('username', username)))
       .catch((error) => console.log("error", error));
+    
   };
 
-  let handleMessage = (data) => {
-    flashMessage(`Welcome back ${data.username}`, "success")
-    return data
-  }
+   let grabUsername = (user) => {
+      return user.username
+   }
   let logout = () => {
-    localStorage.clear()
-    setUser(false)
+    localStorage.setItem("token", "");
+    localStorage.setItem("user", "")
     navigate("/login");
-  };
-  const flashMessage = (message, category) => {
-    setMessage(message);
-    setCategory(category);
   };
 
   return (
     <>
-      <MyNavbar logout={logout} user={user}/>
-      {message ? (
-        <AlertMessage
-          message={message}
-          category={category}
-          flashMessage={flashMessage}
-        />
-      ) : null}
+      <MyNavbar logout={logout} />
       <Routes>
-        <Route path="/" element={<Home flashMessage={flashMessage}/>} />
-        <Route path="/signup" element={<SignUp flashMessage={flashMessage}/>} />
-        <Route path="/shopping-cart" element={<ShoppingCart flashMessage={flashMessage}/>} />
-        <Route path="/fridge" element={<Fridge flashMessage={flashMessage}/>} />
-        <Route path="/login" element={<Login login={login} flashMessage={flashMessage} setUser={setUser}/>} />
-        <Route path="/myrecipes" element={<MyRecipes flashMessage={flashMessage}/>} />
+        <Route path="/" element={<Home />} />
+        <Route path="/signup" element={<SignUp />} />
+        <Route path="/shopping-cart" element={<ShoppingCart />} />
+        <Route path="/fridge" element={<Fridge />} />
+        <Route path="/login" element={<Login login={login} />} />
+        <Route path="/myrecipes" element={<MyRecipes />} />
       </Routes>
  
     </>

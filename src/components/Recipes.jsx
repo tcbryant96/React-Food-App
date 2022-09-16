@@ -34,13 +34,6 @@ export default function Recipes(props) {
         setRecipeId(id)
         setModal(true)
     }
-    let addToCart = (e) => {
-        e.preventDefault()
-        setModal(false)
-        props.addToCart(e)
-    }
-
-
 
     return (
         <>
@@ -70,13 +63,13 @@ export default function Recipes(props) {
                                                         {r.recipe.need} Ingredients needed
                                                     </Badge>
                                                 </div>
+                                               
+                                                    <div className='d-flex justify-content-end'>
 
-                                                <div className='d-flex justify-content-end'>
-
-
-                                                    <Button variant="outline-success" className='w-50 btn-sm fw-bold' id={idx} onClick={handleModal}>Recipe>></Button>
-                                                </div>
-
+                                                        
+                                                        <Button variant="outline-success" className='w-50 btn-sm fw-bold' id={idx} onClick={handleModal}>Recipe>></Button>
+                                                    </div>
+                                                   
                                             </Card.Text>
 
                                         </Card.Body>
@@ -90,14 +83,13 @@ export default function Recipes(props) {
                                                 <Modal.Title>{props.recipes[recipeId].recipe.label}</Modal.Title>
                                             </div>
                                             <div className='col'>
-                                                <h6 className='text-dark'>*Calories: {Math.trunc(props.recipes[recipeId].recipe.calories)}</h6>
                                                 <Badge>ingredient total: {props.recipes[recipeId].recipe.ingredients.length}</Badge>
                                                 {props.recipes[recipeId].recipe.dietLabels.map((i, idx) => {
                                                     return (
-                                                        
+                                                        <>
                                                             <Badge bg="success" className="ms-4">{i}</Badge>
 
-                                                        
+                                                        </>
                                                     )
                                                 })}
                                             </div>
@@ -107,10 +99,7 @@ export default function Recipes(props) {
 
                                         {props.recipes[recipeId].recipe.ingredientLines.map((i, idx) => {
                                             return (
-                                                <>
                                                 <h6>{i}</h6>
-                                                
-                                                </>
                                             )
                                         })}
 
@@ -118,16 +107,14 @@ export default function Recipes(props) {
 
                                     </Modal.Body>
                                     <Modal.Footer>
-                                        <div className='d-flex justify-content-start col'>
-                                       <Button id={recipeId} onClick={addToCart}>
-                                        +Add Ingredients To Cart
-                                       </Button>
-                                       </div>
-                                        <Button variant="success">
-                                            <a href={props.recipes[recipeId].recipe.url} className="text-white" style={{ textDecoration: 'none' }}>Instructions</a>
-                                        </Button>
+                                        <div className='col-7'>
+                                            <h6>*Calories: {Math.trunc(props.recipes[recipeId].recipe.calories)}</h6>
+                                        </div>
                                         <Button variant="secondary" onClick={() => { setModal(false) }}>
                                             Close
+                                        </Button>
+                                        <Button variant="success">
+                                            <a href={props.recipes[recipeId].recipe.url} Instructions className="text-white" style={{ textDecoration: 'none' }}>Instructions</a>
                                         </Button>
                                     </Modal.Footer>
                                 </Modal>
@@ -173,10 +160,10 @@ export default function Recipes(props) {
                                         <div className='row'>
                                             <div className='col-8'>
                                                 <Modal.Title>{props.recipes[recipeId].recipe.label}</Modal.Title>
-
+                                        
                                             </div>
                                             <div className='col'>
-
+                                                
                                                 {props.recipes[recipeId].recipe.dietLabels.map((i, idx) => {
                                                     return (
                                                         <>
@@ -189,32 +176,29 @@ export default function Recipes(props) {
                                         </div>
                                     </Modal.Header>
                                     <Modal.Body>
-
+                                   
                                         {props.recipes[recipeId].recipe.ingredientLines.map((i, idx) => {
                                             return (
                                                 <>
-
-                                                    <h6>{i}</h6>
-
+                                                
+                                                <h6>{i}</h6>
+                                              
                                                 </>
                                             )
                                         })}
-
+ 
 
 
                                     </Modal.Body>
                                     <Modal.Footer>
                                         <div className='col-7'>
-                                            <Button className='btn-success'>
-                                                +Add ingredients to shopping list
-                                            </Button>
+                                            <h6>*Calories: {Math.trunc(props.recipes[recipeId].recipe.calories)}</h6>
                                         </div>
-
-                                        <Button variant="success">
-                                            <a href={props.recipes[recipeId].recipe.url} className="text-white" style={{ textDecoration: 'none' }}>Instructions</a>
-                                        </Button>
                                         <Button variant="secondary" onClick={() => { setModal(false) }}>
                                             Close
+                                        </Button>
+                                        <Button variant="success">
+                                            <a href={props.recipes[recipeId].recipe.url} Instructions className="text-white" style={{ textDecoration: 'none' }}>Instructions</a>
                                         </Button>
                                     </Modal.Footer>
                                 </Modal>
