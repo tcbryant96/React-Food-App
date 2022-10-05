@@ -45,7 +45,7 @@ export default function SearchForm(props) {
 
     <>
       <div className='d-flex justify-content-center p-4'>
-        <Card className='col border-success border-3 container-fluid bg-light'>
+        <Card className='col border-success border-5 container-fluid bg-light'>
           <Nav>
             <div className="nav nav-tabs" id="nav-tab" role="tablist">
               <Button className="nav-link active" id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-home" type="button" role="tab" aria-controls="nav-home" aria-selected="true">Single Item</Button>

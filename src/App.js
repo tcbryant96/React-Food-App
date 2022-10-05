@@ -14,6 +14,8 @@ function App() {
   const [message, setMessage] = useState(null);
   const [category, setCategory] = useState(null);
   const [user, setUser] = useState(false)
+  const [recipes, setRecipes] = useState([])
+
   useEffect(()=> {
        
   }, [user])
@@ -64,10 +66,10 @@ function App() {
         />
       ) : null}
       <Routes>
-        <Route path="/" element={<Home flashMessage={flashMessage}/>} />
+        <Route path="/" element={<Home flashMessage={flashMessage} recipes={recipes} setRecipes={setRecipes}/>} />
         <Route path="/signup" element={<SignUp flashMessage={flashMessage}/>} />
         <Route path="/shopping-cart" element={<ShoppingCart flashMessage={flashMessage}/>} />
-        <Route path="/fridge" element={<Fridge flashMessage={flashMessage}/>} />
+        <Route path="/fridge" element={<Fridge flashMessage={flashMessage} setRecipes={setRecipes}/>} />
         <Route path="/login" element={<Login login={login} flashMessage={flashMessage} setUser={setUser}/>} />
         <Route path="/myrecipes" element={<MyRecipes flashMessage={flashMessage}/>} />
       </Routes>

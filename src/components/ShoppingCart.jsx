@@ -14,8 +14,8 @@ export default function ShoppingCart(props) {
     let [shoppingList, setShoppingList] = useState([])
     let [edit, setEdit] = useState(false)
     let [modal, setModal] = useState(false)
-    let [formId, setFormId] = useState(null)
-    let [update, setUpdate] =useState(null)
+    let [update, setUpdate] = useState(null)
+    let [itemToEdit, setItemToEdit] = useState(null)
 
     useEffect(() => {
 
@@ -33,7 +33,7 @@ export default function ShoppingCart(props) {
             .then(response => response.json())
             .then(result => setShoppingList(result))
             .catch(error => console.log('error', error));
-            setUpdate(null)
+        setUpdate(null)
     }, [update])
     let handleAddItem = async e => {
         e.preventDefault()
@@ -76,21 +76,20 @@ export default function ShoppingCart(props) {
 
         fetch(`http://localhost:5000/api/cart/${id}`, requestOptions)
             .then(response => response.json())
-            .then(result => console.log(result))
+            .then(result => props.flashMessage(`${result.success}`, "danger"))
             .catch(error => console.log('error', error));
-            setUpdate("updated")
-            props.flashMessage("Item Deleted", "danger")
+        setUpdate("updated")
+        window.scrollTo({ top: 0, left: 0, behavior: 'smooth' })
     }
     let handleEditItem = (e) => {
         e.preventDefault()
         let token = localStorage.token
         let id = e.target.itemId.value
-        console.log(id)
+        
         let quantity = e.target.quantity.value
         for (let i = 0; i < shoppingList.length; i++) {
             if (shoppingList[i].id == id) {
                 let item = shoppingList[i].item
-                console.log(item)
                 var myHeaders = new Headers();
                 myHeaders.append("Authorization", "Bearer " + token);
                 myHeaders.append("Content-Type", "application/json");
@@ -111,18 +110,14 @@ export default function ShoppingCart(props) {
                     .then(response => response.json())
                     .then(result => console.log(result))
                     .catch(error => console.log('error', error));
-                setEdit(false)
-                props.flashMessage("Updated" , "success")
+                setItemToEdit(null)
+                props.flashMessage(`${item} Updated`, "success")
                 setUpdate("updated")
             }
         }
 
     }
-    let handleSetEditForm = e => {
-        let id = e.target.id
-        setEdit(true)
-        setFormId(id)
-    }
+
     let handleAddToFridge = () => {
         for (let i = 0; i < shoppingList.length; i++) {
             let item = shoppingList[i].item
@@ -163,14 +158,12 @@ export default function ShoppingCart(props) {
                 .then(response => response.json())
                 .then(result => console.log(result))
                 .catch(error => console.log('error', error));
-                props.flashMessage("Added To Fridge", "primary")
-                
-                setUpdate("updated")
+            props.flashMessage("Added To Fridge", "primary")
+
+            setUpdate("updated")
         }
     }
-    let handleRow = e => {
-        console.log('hi')
-    }
+    
     let handleMultiDelete = e => {
         let token = localStorage.token
         for (let i = 0; i < shoppingList.length; i++) {
@@ -195,6 +188,10 @@ export default function ShoppingCart(props) {
             props.flashMessage("List Cleared", "danger")
         }
     }
+    let tableEdit = e => {
+        setEdit(true)
+        setItemToEdit(e.target.id)
+    }
 
     return (
         <>
@@ -209,7 +206,7 @@ export default function ShoppingCart(props) {
                             <h1 className='underline mb-5 mt-5'>Shopping Cart</h1>
                         </div>
                     </div>
-                    <div className='row d-flex justify-content-center'>
+                    <div className='row d-flex justify-content-center '>
                         <div className='col-10 '>
                             {shoppingList.length >= 1 ?
                                 <Table striped bordered hover variant="success">
@@ -217,51 +214,65 @@ export default function ShoppingCart(props) {
                                         <tr>
                                             <th className='text-center'>Item</th>
                                             <th className='text-center'>Quantity</th>
-                                            <th></th>
-                                            <th className='col-2'></th>
+
+
                                         </tr>
                                     </thead>
                                     <tbody>
                                         {shoppingList.map((i, idx) => {
                                             return (
                                                 <>
-                                                <tr>
-                                                  <td className='text-center'><Badge bg="primary">{i.item}</Badge></td>
-                                                  {edit ?
-                                                  <>
-                                                    <td className='fw-bold text-center d-flex justify-content-evenly'>
-                                                      <div className='row d-flex justify-content-between'>
-                                                        <Form onSubmit={handleEditItem}>
-                                                          <Form.Group className="mb-3 d-flex justify-content-evenly">
-                                                            <div className='col-3'>
-                                                              <Form.Control id="quantity" placeholder="Quantity" className="text-center " defaultValue={i.quantity} />
-                                                            </div>
-                                                            <div className='col-2 d-flex'>
-                                                              <Button id="itemId" value={i.id} className='me-3' type="submit">Save</Button>
-                                                              <Button variant='danger' onClick={() => { setEdit(false) }}>Cancel</Button>
-                                                            </div>
-                                                          </Form.Group>
-                                                        </Form>
-                                                      </div>
-                                                    </td> 
-                                                    <td>
-                                                    
-                                                    </td>
-                                                    <td>
 
-                                                    </td>
-                                                    </>:
-                                                    <>
-                                                    <td className='fw-bold text-center'>{i.quantity}</td>
-                                                  <td><Button onClick={() => { setEdit(true) }} className='container-fluid btn-success'>
-                                                    edit
-                                                  </Button></td>
-                                                  <td><Button id={i.id} onClick={handleDeleteItem} className='container-fluid btn-danger'>
-                                                    delete
-                                                  </Button></td></>}
-                                                </tr>
-                                                </>
-                                            )
+                                                    {itemToEdit === i.item ?
+                    
+                                                        <>
+                                                            <tr>
+                                                                <td className='text-center'><Badge bg="primary">{i.item}</Badge></td>
+                                                                <td className='fw-bold text-center'>
+                                        
+                                                                        <Form onSubmit={handleEditItem}>
+                                                                            <Form.Group className=' d-flex justify-content-center'>
+                                                                                <div className='col-4 d-flex justify-content-center'>
+                                                                                    <Form.Control id="quantity" placeholder="Quantity" className="text-center w-50 " defaultValue={i.quantity} />
+                                                                                </div>
+                                                                                <div className='col d-flex justify-content-evenly'>
+                                                                                    <Button id="itemId" value={i.id} className='me-3' type="submit">Save</Button>
+                                                                                    <Button variant='danger' onClick={() => { setItemToEdit(null) }} className="me-2">Cancel</Button>
+                                                                                </div>
+                                                                            </Form.Group>
+                                                                        </Form>
+                                                                
+                                                                </td>
+
+
+                                                            </tr>
+                                                        </> :
+
+                                                        <tr>
+                                                            <td className='text-center'><Badge bg="primary">{i.item}</Badge></td>
+                                                            <td className='fw-bold text-center'>
+                                                          
+                                                                    <div className=' d-flex justify-content-center'>
+                                                                        <div className='col-4 d-flex justify-content-center' >
+                                                                            {i.quantity}
+                                                                        </div>
+                                                                        <div className='col d-flex justify-content-evenly'>
+                                                                            <Button onClick={tableEdit} variant="success" id={i.item} className='me-3' >
+                                                                                Edit
+                                                                            </Button>
+                                                                            <Button id={i.id} onClick={handleDeleteItem} variant="danger" className='me-2' >
+                                                                                Delete
+                                                                            </Button>
+                                                                        </div>
+                                                                    </div>
+                                                                   
+                                                                
+                                                            </td>
+
+                                                        </tr>
+                                                    }
+
+                                                </>)
                                         })}
                                     </tbody>
                                 </Table> :

@@ -45,13 +45,13 @@ export default function Recipes(props) {
     return (
         <>
             {props.recipes ?
-                <div className='row ' style={{ backgroundImage: `url(${image})`, backgroundRepeat: "no-repeat", backgroundSize: 'cover', backgroundPosition: 'center' }}>
+                <div className='row ' >
 
                     {props.recipes.map((r, idx) => {
                         return (
                             <>
-                                <div key={idx} className="col-lg-4 d-flex align-items-stretch">
-                                    <Card style={{ width: '20rem' }} className="ms-2 mb-3 border-success border-3 bg-light rounded me-2 mt-4" >
+                                <div key={idx} className="col-lg-4 d-flex align-items-stretch justify-content-center">
+                                    <Card style={{ width: '20rem' }} className="ms-2 mb-3 border-success border-5 bg-light rounded me-2 mt-4" >
                                         <div className='d-flex justify-content-center '>
                                             <Card.Img variant="top" src={r.recipe.image} className=" p-3 border-success rounded" style={{ width: '15rem', height: "12rem" }} />
 
@@ -119,9 +119,11 @@ export default function Recipes(props) {
                                     </Modal.Body>
                                     <Modal.Footer>
                                         <div className='d-flex justify-content-start col'>
+                                       {localStorage.token ? 
                                        <Button id={recipeId} onClick={addToCart}>
                                         +Add Ingredients To Cart
                                        </Button>
+                                       : null}
                                        </div>
                                         <Button variant="success">
                                             <a href={props.recipes[recipeId].recipe.url} className="text-white" style={{ textDecoration: 'none' }}>Instructions</a>

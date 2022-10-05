@@ -55,6 +55,7 @@ export default function SideBarLeft() {
                    
                 </Carousel.Item>
                 <Carousel.Item >
+                    <div className='mt-5'>
                     <div className='text-center'>
                         <img
                             className=" w-75 container-fluid"
@@ -68,6 +69,7 @@ export default function SideBarLeft() {
                         <h6 className='mb-5 fw-bold'>
                            Add to your Grocery list, then from Grocery list to Fridge, then Fridge to food!  
                         </h6>
+                   </div>
                    </div>
                         
                     

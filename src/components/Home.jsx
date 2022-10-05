@@ -11,9 +11,8 @@ export default function Home(props) {
     let [fridge, setFridge] = useState([{ "item": "carrots", "quantity": 5 }, { "item": "eggs", "quantity": 24 }, { "item": "chicken", "quantity": 10 }])
     let [need, setNeed] = useState(0)
     useEffect(()=>{
-        console.log(localStorage)
-        setRecipes(recipes)
-    }, [recipes])
+        setRecipes(props.recipes)
+    }, [props.recipes])
 
     let handleSingleSearch = async e =>{
         e.preventDefault()
@@ -24,8 +23,8 @@ export default function Home(props) {
         for (let i= 0; i<data.hits.length; i++){
             data.hits[i].recipe.need = data.hits[i].recipe.ingredients.length - 1
         }
-        setRecipes(data.hits)
-        console.log(data.hits)
+        props.setRecipes(data.hits)
+        
         
     }
     let addToCart = (e) => {
@@ -86,7 +85,7 @@ export default function Home(props) {
             for (let i= 0; i<newData.length; i++){
                 newData[i].recipe.need = newData[i].recipe.ingredients.length - 1
             }
-            setRecipes(newData)
+            props.setRecipes(newData)
         }
         else if(min > 0){
             let response = await fetch (`https://api.edamam.com/api/recipes/v2?type=public&q=${item}&app_id=1c456c6c&app_key=ab7e991bd941a2edff4bc35495224221&ingr=${min}%2B`)
@@ -109,7 +108,7 @@ export default function Home(props) {
             for (let i= 0; i<newData.length; i++){
                 newData[i].recipe.need = newData[i].recipe.ingredients.length - 1
             }
-            setRecipes(newData)
+            props.setRecipes(newData)
         }
         else if(max > 0) {
             let response = await fetch (`https://api.edamam.com/api/recipes/v2?type=public&q=${item}&app_id=1c456c6c&app_key=ab7e991bd941a2edff4bc35495224221&ingr=${max}`)
@@ -130,7 +129,7 @@ export default function Home(props) {
             for (let i= 0; i<newData.length; i++){
                 newData[i].recipe.need = newData[i].recipe.ingredients.length - 1
             }
-            setRecipes(newData)
+            props.setRecipes(newData)
         }
         else{
             let response = await fetch(`https://api.edamam.com/api/recipes/v2?type=public&q=${item}&app_id=1c456c6c&app_key=ab7e991bd941a2edff4bc35495224221`)
@@ -138,7 +137,7 @@ export default function Home(props) {
             for (let i= 0; i<data.hits.length; i++){
                 data.hits[i].recipe.need = data.hits[i].recipe.ingredients.length - 1
             }
-            setRecipes(data.hits)
+            props.setRecipes(data.hits)
         }
         
 
@@ -152,7 +151,6 @@ export default function Home(props) {
             
         }
         let itemUrl = item.join('')
-        console.log(itemUrl)
         let response = await fetch(`https://api.edamam.com/api/recipes/v2?type=public&q=${itemUrl}&app_id=1c456c6c&app_key=ab7e991bd941a2edff4bc35495224221`)
         let data = await response.json()
         for (let i = 0; i<data.hits.length; i++){
@@ -162,7 +160,7 @@ export default function Home(props) {
                 for(let j = 0; j<searchList.length; j++){
                     
                     
-                    if (data.hits[i].recipe.ingredients[q].food.includes(searchList[j])){
+                    if (data.hits[i].recipe.ingredients[q].food.includes(searchList[j]) ){
                        num+=1
                     }
                     
@@ -181,7 +179,7 @@ export default function Home(props) {
             
       
         }
-        setRecipes(data.hits)
+        props.setRecipes(data.hits)
         setSearchList([])
 
     }
