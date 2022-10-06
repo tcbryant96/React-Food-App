@@ -206,7 +206,7 @@ export default function ShoppingCart(props) {
 
                         </div>
                         <div className='col d-flex'>
-                            <h1 className='underline mb-5 mt-5'>Shopping Cart</h1>
+                            <h1 className='underline mb-5 mt-5'>Shopping List</h1>
                         </div>
                     </div>
                     <div className='row d-flex justify-content-center '>
