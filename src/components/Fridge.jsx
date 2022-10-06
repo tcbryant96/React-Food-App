@@ -36,7 +36,9 @@ export default function Fridge(props) {
       .catch(error => console.log('error', error));
     setUpdate(null)
   }, [update])
+  
   let navigate = useNavigate()
+  
   let handleAddItem = async e => {
     e.preventDefault()
     let item = e.target.item.value
@@ -60,10 +62,10 @@ export default function Fridge(props) {
 
     fetch("http://localhost:5000/api/fridge", requestOptions)
       .then(response => response.json())
-      .then(result => console.log(result))
+      .then(result => props.flashMessage(`${result.item} added to Fridge`, "primary"))
       .catch(error => console.log('error', error));
     setUpdate("updated")
-    props.flashMessage("Item Added", "primary")
+    
     setAddItem(false)
   }
 
@@ -81,12 +83,12 @@ export default function Fridge(props) {
 
     fetch(`http://localhost:5000/api/fridge/${id}`, requestOptions)
       .then(response => response.json())
-      .then(result => console.log(result))
+      .then(result => props.flashMessage(result.success, "danger"))
       .catch(error => console.log('error', error));
     setUpdate("updated")
-    props.flashMessage("Item Deleted", "danger")
 
   }
+  
   let handleEditItem = (e) => {
     e.preventDefault()
     let token = localStorage.token
@@ -116,15 +118,16 @@ export default function Fridge(props) {
 
         fetch(`http://localhost:5000/api/fridge/${id}`, requestOptions)
           .then(response => response.json())
-          .then(result => console.log(result))
+          .then(result => props.flashMessage(`${result.item} quantity updated to ${result.quantity}`, "primary"))
           .catch(error => console.log('error', error));
         setItemToEdit(null)
         setUpdate("updated")
-        props.flashMessage("Updated", "primary")
+      
       }
     }
 
   }
+  
   let handleMultiDelete = e => {
     let token = localStorage.token
     for (let i = 0; i < shoppingList.length; i++) {
@@ -154,6 +157,7 @@ export default function Fridge(props) {
     setEdit(true)
     setItemToEdit(e.target.id)
   }
+  
   let handleSwitch = e => {
 
     let newsearchList = searchList
@@ -167,6 +171,7 @@ export default function Fridge(props) {
     }
 
   }
+  
   let handleMultiSearch = async e => {
     e.preventDefault()
 

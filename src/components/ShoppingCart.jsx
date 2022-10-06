@@ -35,6 +35,7 @@ export default function ShoppingCart(props) {
             .catch(error => console.log('error', error));
         setUpdate(null)
     }, [update])
+    
     let handleAddItem = async e => {
         e.preventDefault()
         let token = localStorage.token
@@ -56,12 +57,13 @@ export default function ShoppingCart(props) {
 
         fetch("http://localhost:5000/api/cart", requestOptions)
             .then(response => response.json())
-            .then(result => console.log(result))
+            .then(result => props.flashMessage(`${result.item} added to Shopping List`, "primary"))
             .catch(error => console.log('error', error));
         props.flashMessage("Item Added", "success")
         setUpdate("updated")
         setAddItem(false)
     }
+    
     let handleDeleteItem = (e) => {
         let token = localStorage.token
         let id = e.target.id
@@ -81,6 +83,7 @@ export default function ShoppingCart(props) {
         setUpdate("updated")
         window.scrollTo({ top: 0, left: 0, behavior: 'smooth' })
     }
+    
     let handleEditItem = (e) => {
         e.preventDefault()
         let token = localStorage.token
@@ -108,7 +111,7 @@ export default function ShoppingCart(props) {
 
                 fetch(`http://localhost:5000/api/cart/${id}`, requestOptions)
                     .then(response => response.json())
-                    .then(result => console.log(result))
+                    .then(result =>  props.flashMessage(`${result.item} quantity updated to ${result.quantity}`, "primary"))
                     .catch(error => console.log('error', error));
                 setItemToEdit(null)
                 props.flashMessage(`${item} Updated`, "success")
