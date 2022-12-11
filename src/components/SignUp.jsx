@@ -3,6 +3,10 @@ import Card from 'react-bootstrap/Card'
 import "../App.css"
 import image from "../Images/orange2.jpg"
 import { useNavigate } from 'react-router-dom'
+import { ThemeProvider } from 'react-bootstrap'
+import Col from 'react-bootstrap/Col';
+import Row from 'react-bootstrap/Row';
+
 
 export default function SignUp(props) {
     let navigate = useNavigate()
@@ -46,10 +50,14 @@ export default function SignUp(props) {
 
     return (
         <>
+        <ThemeProvider
+  breakpoints={['xxxl', 'xxl', 'xl', 'lg', 'md', 'sm', 'xs', 'xxs']}
+  minBreakpoint="xxs"
+>
             <div className="container-fluid">
-                <div className='row d-flex justify-content-center' >
-                    <div className='col-6'>
-                        <Card className='border-success border-4 mt-5'>
+                <Row className='row d-flex justify-content-center' >
+                    <Col lg={5} sm={8} md={6}>
+                        <Card className='border-success border-3 mt-5'>
                             <h4 className="text-center underline">Create Your Account</h4>
                             <form onSubmit={handleSubmit}>
                                 <div className="form-group p-4">
@@ -81,7 +89,7 @@ export default function SignUp(props) {
                                     <input
                                         type="password"
                                         className="form-control border-success border-3"
-                                        placeholder="Enter Password Again"
+                                        placeholder="Enter Password"
                                         id="confirmPass"
                                         required
                                     />
@@ -94,9 +102,10 @@ export default function SignUp(props) {
                                 </div>
                             </form>
                         </Card>
-                    </div>
-                </div>
+                    </Col>
+                </Row>
             </div>
+            </ThemeProvider>
         </>
     )
 }

@@ -51,7 +51,7 @@ export default function Recipes(props) {
                         return (
                             <>
                                 <div key={idx} className="col-lg-4 d-flex align-items-stretch justify-content-center">
-                                    <Card style={{ width: '20rem' }} className="ms-2 mb-3 border-success border-5 bg-light rounded me-2 mt-4" >
+                                    <Card style={{ width: '20rem' }} className="ms-2 mb-3 border-success border-3 bg-light rounded me-2 mt-4" >
                                         <div className='d-flex justify-content-center '>
                                             <Card.Img variant="top" src={r.recipe.image} className=" p-3 border-success rounded" style={{ width: '15rem', height: "12rem" }} />
 
@@ -74,7 +74,7 @@ export default function Recipes(props) {
                                                 <div className='d-flex justify-content-end'>
 
 
-                                                    <Button variant="outline-success" className='w-50 btn-sm fw-bold' id={idx} onClick={handleModal}>Recipe>></Button>
+                                                    <Button variant="outline-success" className='w-50 btn-sm fw-bold' id={idx} onClick={handleModal}>Recipe</Button>
                                                 </div>
 
                                             </Card.Text>
@@ -162,7 +162,7 @@ export default function Recipes(props) {
                                                 </div>
                                                 <div className='d-flex justify-content-end'>
 
-                                                    <Button variant="outline-success" className='w-50 btn-sm fw-bold' id={idx} onClick={handleModal}>Recipe>></Button>
+                                                    <Button variant="outline-success" className='w-50 btn-sm fw-bold' id={idx} onClick={handleModal}>Recipe</Button>
                                                 </div>
                                             </Card.Text>
 

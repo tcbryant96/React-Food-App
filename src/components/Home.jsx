@@ -4,6 +4,11 @@ import SideBarLeft from './SideBarLeft'
 import Recipes from './Recipes'
 import "../App.css"
 import MyNavbar2 from './MyNavbar2'
+import Col from 'react-bootstrap/Col';
+import  Row from 'react-bootstrap/Row';
+import { ThemeProvider } from 'react-bootstrap'
+
+
 
 export default function Home(props) {
     let [searchList, setSearchList] = useState([])
@@ -188,30 +193,38 @@ export default function Home(props) {
     }
     return (
         <>
+        <ThemeProvider
+  breakpoints={['xxxl', 'xxl', 'xl', 'lg', 'md', 'sm', 'xs', 'xxs']}
+  minBreakpoint="xxs"
+>
             <div>
-                <div className='row '>
-                    <div className='col d-flex align-items-stretch'>
+                <Row className='justify-content-center'>
+                    <Col lg={6} sm={10} xs={10} md={6}>
                         <SideBarLeft />
-                    </div>
-                    <div className='col me-3 d-flex align-items-stretch justify-content-center'>
+                    </Col>
+                    <Col className=''>
 
                         <SearchForm className="mb-3 container-fluid" handleSingleSearch={handleSingleSearch} handleMinMaxSearch={handleMinMaxSearch} handleMultiSearch={handleMultiSearch} setSearchList={setSearchList} setRecipes={setRecipes} searchList={searchList}/>
 
-                    </div>
+                    </Col>
 
 
-                </div>
+                </Row>
                 <div className=" sticky-top">
+                    {recipes.length >= 1 ?
                     <MyNavbar2 scrollUp={scrollUp} />
+                    :null}
                 </div>
 
                 <div className='row '>
                     <div className='col'>
+                        
                         <Recipes recipes={recipes} fridge={fridge} addToCart={addToCart}/>
                     </div>
 
                 </div>
             </div>
+            </ThemeProvider>
         </>
     )
 }

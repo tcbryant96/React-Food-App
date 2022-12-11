@@ -11,11 +11,10 @@ export default function SideBarLeft() {
     }
     return (
         <>
-            <Carousel activeIndex={index} onSelect={handleSelect} className=" w-100" variant="dark">
-                <Carousel.Item>
-                    <div className='text-center'>
+            <Carousel activeIndex={index} onSelect={handleSelect} className='carouselImg' variant="dark">
+                <Carousel.Item >
+                    <div className='text-center carouselImg'>
                         <img
-                            className=" w-75 container-fluid"
                             src={require('../Images/fridge2.png')}
                             alt="Fridge"
                         />
@@ -26,20 +25,17 @@ export default function SideBarLeft() {
                     </Carousel.Caption>
                     <h6 className='fw-bold text-center  mt-4 mb-5'>Add whats in your Fridge to recipe search and find out what's for dinner tonight!</h6>
                 </Carousel.Item>
-                <Carousel.Item className=''>
-                    <div className='text-center row'>
+                <Carousel.Item>
+                    <div className='text-center row carouselImg justify-content-center'>
                         <img
-                            className=" w-75 container-fluid ms-5"
 
                             src={require('../Images/food.png')}
                             alt="Food Logo"
                         />
                     </div>
                     <div className='row text-center'>
-                        <h1 className=' mt-2 mb-3'>
-                            Sign Up For Free!
-                        </h1>
-                        <h6 className="fw-bold">
+                      
+                        <h6 className="fw-bold mt-2">
                             Sign up to keep track of your Shopping List and Fridge for a more personalized experience.
                         </h6>
                         <div className='d-flex justify-content-center'>
@@ -55,10 +51,10 @@ export default function SideBarLeft() {
                    
                 </Carousel.Item>
                 <Carousel.Item >
-                    <div className='mt-5'>
+                    <div className=''>
                     <div className='text-center'>
                         <img
-                            className=" w-75 container-fluid me-4"
+                            className=""
                             src={require('../Images/shoppingCart.png')}
                             alt="Shopping Cart"
                         />

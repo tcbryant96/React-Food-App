@@ -4,6 +4,8 @@ import Card from 'react-bootstrap/Card'
 import "../App.css"
 import { useNavigate } from 'react-router-dom'
 import { useEffect } from 'react'
+import { ThemeProvider } from 'react-bootstrap'
+import Col from 'react-bootstrap/Col';
 
 export default function Login(props) {
     useEffect(()=>{
@@ -62,10 +64,14 @@ export default function Login(props) {
     }
     return (
         <>
+        <ThemeProvider
+  breakpoints={['xxxl', 'xxl', 'xl', 'lg', 'md', 'sm', 'xs', 'xxs']}
+  minBreakpoint="xxs"
+>
             <div className="container-fluid">
                 <div className='row d-flex justify-content-center' >
-                    <div className='col-6'>
-                        <Card className='border-success border-4 mt-5'>
+                    <Col lg={5} md={6} sm={8} xs={10}>
+                        <Card className='border-success border-3 mt-5'>
                             <h4 className="text-center underline">Login</h4>
                             <form onSubmit={handleSubmit}>
                                 <div className="form-group p-4">
@@ -94,9 +100,10 @@ export default function Login(props) {
                                 </div>
                             </form>
                         </Card>
-                    </div>
+                    </Col>
                 </div>
             </div>
+            </ThemeProvider>
         </>
     )
 }

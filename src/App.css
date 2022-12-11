@@ -45,3 +45,8 @@
   
   min-height: 100vh;
 }
+.carouselImg img{
+  width: auto;
+  height:300px;
+  max-height: 300px;
+}
